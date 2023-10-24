@@ -17,7 +17,3 @@ def login():
 @auth.route('/logout')
 def logout():
     return "Logout page"
-
-@auth.route('/dashboard')
-def dashboard():
-    return "dashboard page"
