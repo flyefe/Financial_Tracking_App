@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- User information and financial summary -->
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h3>Welcome, !</h3>
+            <p>Total Expenses: ${{ user.total_expenses }}</p>
+            <p>Total Income: ${{ user.total_income }}</p>
+        </div>
+    </div>
+
+    <!-- Expense form -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Add Expense</h4>
+            <form action="{{ url_for('add_expense') }}" method="post">
+                <div class="form-group">
+                    <label for="expense_description">Description</label>
+                    <input type="text" class="form-control" id="expense_description" name="expense_description"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="expense_amount">Amount</label>
+                    <input type="number" class="form-control" id="expense_amount" name="expense_amount" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Income form -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Add Income</h4>
+            <form action="{{ url_for('add_income') }}" method="post">
+                <div class="form-group">
+                    <label for="income_description">Description</label>
+                    <input type="text" class="form-control" id="income_description" name="income_description" required>
+                </div>
+                <div class="form-group">
+                    <label for="income_amount">Amount</label>
+                    <input type="number" class="form-control" id="income_amount" name="income_amount" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Income</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
