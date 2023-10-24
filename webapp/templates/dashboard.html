@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h2>Dashboard</h2>
+
+        <!-- Display user information -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Welcome, {{ user.username }}</h5>
+                <p class="card-text">Total Expenses: ${{ total_expenses }}</p>
+                <p class="card-text">Total Income: ${{ total_income }}</p>
+            </div>
+        </div>
+
+        <!-- Expenses section -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Expenses</h5>
+                <ul class="list-group">
+                    {% for expense in expenses %}
+                    <li class="list-group-item">
+                        {{ expense.description }} - ${{ expense.amount }}
+                        <button class="btn btn-danger btn-sm float-right" data-toggle="modal"
+                            data-target="#deleteExpenseModal-{{ expense.id }}">Delete</button>
+                    </li>
+                    <!-- Modal for deleting expense -->
+                    <div class="modal fade" id="deleteExpenseModal-{{ expense.id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteExpenseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteExpenseModalLabel">Confirm Deletion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this expense?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="{{ url_for('delete_expense', id=expense.id) }}"
+                                        class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Income section -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Income</h5>
+                <ul class="list-group">
+                    {% for income in income %}
+                    <li class="list-group-item">
+                        {{ income.description }} - ${{ income.amount }}
+                        <button class="btn btn-danger btn-sm float-right" data-toggle="modal"
+                            data-target="#deleteIncomeModal-{{ income.id }}">Delete</button>
+                    </li>
+                    <!-- Modal for deleting income -->
+                    <div class="modal fade" id="deleteIncomeModal-{{ income.id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteIncomeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteIncomeModalLabel">Confirm Deletion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this income entry?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="{{ url_for('delete_income', id=income.id) }}"
+                                        class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
