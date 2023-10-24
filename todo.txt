@@ -1,0 +1,34 @@
+Workflow
+	1. Structure app
+	2. Install packages
+	3. Initialize app in init
+		a. Config secrete key
+		b. Return app
+	4. Import app in main.py and run
+	5. Create blueprints (contains different urls)
+		a. Views
+		b. Auth
+		c. Etc
+	6. Register blueprints
+	7. Create templates
+		a. Base.html
+		b. Home/index.html
+		c. Etc.html
+	8. Configure databases
+		a. Import sqlalchemy, configure and initialize db in init.py file
+	9. Define database modules
+		a. From . Import db
+		b. From flask_login import UserMixin
+		c. Define class or object; this defines all the columns that is going to be stored in this object. It is a schema for the database; a model.
+	10. Handle http requests using script at the backend
+		a. GET from the url that we have specified. Default
+		b. POST to the url we want to handle the data
+			i. Handle sign up
+			ii. Handle login
+			iii. Handle other postings
+				1) Notes/comments
+				2) Order
+				3) Records
+				4) Etc
+	11. Handle all GET request to read data to tables from database
+	12. Implement all access points for users using login manager to load users
