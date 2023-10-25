@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
 from flask import session
 from flask_login import login_user, logout_user, login_required, current_user
 auth = Blueprint('auth', __name__)
@@ -28,13 +29,14 @@ def sign_up():
             flash("Passwords don't match", category='error')
         elif len(password) < 7:
             flash("Password must be at least 7 characters", category='error')
-        # elif User.query.filter_by(email=email).first():
-        #     flash("Email already exists", category='error')
+        elif User.query.filter_by(email=email).first():
+            flash("Email already exists", category='error')
         
         else:
             new_user = User(username=username, first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password, method='sha256')  )
             db.session.add(new_user)
             db.session.commit()
+            login_user(new_user, remember=True)
             flash ("Account created!", category='success')
             return redirect (url_for('views.profile'))
     
@@ -47,7 +49,16 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        print(email, password)
+        user = User.query.filter_by(email=email).first()
+        if user:
+            if check_password_hash(user.password, password):
+                flash("Logged in successfully", category='success')
+                login_user(user, remember=True)
+                return redirect(url_for('views.profile'))
+            else:
+                flash("Incorrect password, try again", category='error')
+        else:
+            flash('Email does not exist', category='error')
     return render_template("login.html")
 
 @auth.route('/logout')
