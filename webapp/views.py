@@ -13,7 +13,7 @@ def home():
 
 @views.route('/profile')
 def profile():
-    return "profile page" 
+    return render_template("profile.html") 
 
 @views.route('/history')
 def history():
