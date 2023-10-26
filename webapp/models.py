@@ -4,9 +4,18 @@ from sqlalchemy.sql import func
 from datetime import datetime
 
 
-# Define the Income Model
+ 
+class Transactions(db.Model):
+    transaction_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    transaction_type = db.Column(db.String(50))
+    amount = db.Column(db.Float)
+    transaction_date = db.Column(db.DateTime(timezone=True), default=func.now())
+    description = db.Column(db.String(255))
 
-class User(db.Model, UserMixin):
+
+# Define the Users Model
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
@@ -14,15 +23,5 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255), nullable=False)
     date_joined = db.Column(db.DateTime(timezone=True), default=func.now())
-    # accounts = db.relationship('Account', backref='user', lazy=True)
-
-class Transaction(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    description = db.Column(db.String(255))
-    expense = db.Column(db.Float, default=0.00)
-    income = db.Column(db.Float, default=0.00)
-    total_income = db.Column(db.Float)
-    total_expenses = db.Column(db.Float)
     balance = db.Column(db.Float)
-    date_recorded = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    transactions = db.relationship('Transactions', backref='users', lazy=True)
