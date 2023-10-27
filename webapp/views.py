@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import current_user, login_required
-from .models import Transactions
+from .models import Transactions, Users
 from . import db
 from flask import flash
 from flask import url_for
@@ -45,21 +45,48 @@ def transaction_history():
     # Query transactions
    if True:
         user_id = 1  # Replace with the user's ID
+        # transaction_id = [result[0] for result in db.session.query(Transactions.transaction_id).all()] # Replace with the transaction ID
+        transaction_id = db.session.query(Transactions.transaction_id).all()
         
         transactions = Transactions.query.filter_by(user_id=current_user.id).all()
-        income = Transactions.query.filter_by(user_id=current_user.id, transaction_type='Income').all()
-        expense = Transactions.query.filter_by(user_id=current_user.id, transaction_type='Expense').all()
-        # total_income = db.session.query(func.sum(Transactions.amount).filter(Transactions.user_id == user_id, Transactions.transaction_type == 'income')).scalar() or 0
-        # total_expenses = db.session.query(func.sum(Transactions.amount).filter(Transactions.user_id == user_id, Transactions.transaction_type == 'expense')).scalar() or 0
 
-        balance = 0
+        transaction = db.session.query(Transactions.amount).filter(Transactions.transaction_id == transaction_id).all()
 
-        for transaction in transactions:
-            if transaction.transaction_type == 'Income':
-                balance += transaction.amount
+        transaction_type = Transactions.transaction_type
+
+        for transid in transaction_id:
+            if  transaction_type== 'income':
+                income = (
+                    db.session.query(Transactions.amount)
+                    .filter(
+                        Transactions.user_id == current_user.id,
+                        Transactions.transaction_id == transid,
+                        Transactions.transaction_type == 'income'
+                    )
+                    .scalar()
+                        )
             else:
-                balance -= transaction.amount
-
-        return render_template("history.html", transactions=transactions, income=income, expense=expense, user=current_user, balance=balance)
-    
+                # Query the expense amount for a specific user and transaction
+                expense = (
+                    db.session.query(Transactions.amount)
+                    .filter(
+                        Transactions.user_id == current_user.id,
+                        Transactions.transaction_id == transid,
+                        Transactions.transaction_type == 'expense'
+                    )
+                    .scalar() )
+           
+        return render_template("history.html", transactions=transactions, income=income, expense=expense, user=current_user)
     # Render transaction history pagereturn render_template("transaction_history.html", transactions=transactions, user=current_user)
+
+
+@views.route('/test')
+@login_required  
+def test():
+    user = db.session.query(Users).all()
+    print(user)
+    all_transactions = db.session.query(Transactions.transaction_type).all()
+    query = all_transactions
+
+
+    return render_template("addrecord.html", user=current_user, query=query)

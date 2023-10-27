@@ -12,6 +12,7 @@ class Transactions(db.Model):
     amount = db.Column(db.Float)
     transaction_date = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String(255))
+    balance = db.Column(db.Float)
 
 
 
@@ -24,5 +25,5 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255), nullable=False)
     date_joined = db.Column(db.DateTime(timezone=True), default=func.now())
-    balance = db.Column(db.Float)
+    # balance = db.Column(db.Float)
     transactions = db.relationship('Transactions', backref='users', lazy=True)

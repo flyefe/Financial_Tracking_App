@@ -7,7 +7,6 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     date_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
-    balance DECIMAL(15, 2)
 );
 
 -- Transactions Table
@@ -18,6 +17,7 @@ CREATE TABLE Transactions (
     amount DECIMAL(15, 2),
     transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     description VARCHAR(255),
+    balance DECIMAL(15, 2)
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
