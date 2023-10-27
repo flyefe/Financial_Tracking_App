@@ -14,6 +14,7 @@ class Transactions(db.Model):
     description = db.Column(db.String(255))
 
 
+
 # Define the Users Model
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

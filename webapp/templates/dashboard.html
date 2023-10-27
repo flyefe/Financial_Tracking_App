@@ -3,9 +3,18 @@
 {% block title %}Create Account{% endblock %}
 
 {% block content %}
+<div align="center">
+    <h1>Dashboard page</h1>
+    <p>Here we will see the key metrics of this app</p>
+    <p>On this page, you also enter youor record</p>
+    <p>you will see the total amount you spend each day for the past 7 days</p>
+    <p>you will see the total income you got earned for the past 7 days</p>
+    <P>Your goal is to earn more per day and spend less per day</P>
+    <h2>Start by inputing the amount you want to track</h2>
+</div>
 <div class="row mt-lg-5">
     <div class="col-md-6 offset-md-3">
-        <h2>Create Account</h2>
+        <h2>Inpute Transaction</h2>
         <form method="POST" action="{{ url_for('views.home') }}">
             <div class="form-group">
                 <label for="description">Description</label>
@@ -22,23 +31,9 @@
                 <label for="income">Amount</label>
                 <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
             </div>
-                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="submit" class="btn btn-primary">Add Transaction</button>
         </form>
     </div>
 </div>
 
-
-<h1>Dashboard page</h1>
-<p>Here we will see the key metrics of this app</p>
-<p>On this page, you also enter youor record</p>
-<p>you will see the total amount you spend each day for the past 7 days</p>
-<p>you will see the total income you got earned for the past 7 days</p>
-<P>Your goal is to earn more per day and spend less per day</P>
-<h2>Start by inputing the amount you want to track</h2>
-<form>
-    <label>Amount</label>
-    <label>Discription</label>
-    <label>Category</label>
-    <select></select>
-</form>
 {% endblock %}
