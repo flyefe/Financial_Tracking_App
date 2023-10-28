@@ -32,3 +32,14 @@ Workflow
 				4) Etc
 	11. Handle all GET request to read data to tables from database
 	12. Implement all access points for users using login manager to load users
+
+
+
+goals
+<p>Here we will see the key metrics of this app</p>
+<p>On this page, you also enter youor record</p>
+<p>you will see the total amount you spend each day for the past 7 days</p>
+<p>you will see the total income you got earned for the past 7 days</p>
+<P>Your goal is to earn more per day and spend less per day</P>
+<p>You will also see all the amount you have in your various bank accounts</p>
+<P>You will see the amount you have left in each of these accoun</P>
