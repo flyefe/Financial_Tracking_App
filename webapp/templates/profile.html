@@ -5,38 +5,14 @@
 {% block content %}
 <div class="row mt-3">
     <div class="col-10 offset-1 ">
-        <h2>Transaction History</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Transaction ID</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Income</th>
-                    <th>Expense</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaction in transactions %}
-                <tr>
-                    <td>{{ transaction.user_id }}</td>
-                    <td>{{ transaction.transaction_id }}</td>
-                    <td>{{ transaction.transaction_date }}</td>
-                    <td>{{ transaction.description }}</td>
-                    <td>{{ income }}</td>
-                    <td>{{ expense }}</td>
-                    <td>{{ transaction.balance }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="transaction-summary">
-            <h4>Total Income: {{ total_income }}</h4>
-            <h4>Total Expenses: {{ total_expenses }}</h4>
+        <div align="center">
+            <h1>Profile page</h1>
+            <p>Here we will see the key metrics of this app</p>
+            <p>On this page, you also enter youor record</p>
+            <p>you will see the total amount you spend each day for the past 7 days</p>
+            <p>you will see the total income you got earned for the past 7 days</p>
+            <P>Your goal is to earn more per day and spend less per day</P>
+            <p>You will also see all the amount you have in your various bank accounts</p>
+            <P>You will see the amount you have left in each of these accoun</P>
         </div>
-    </div>
-</div>
 {% endblock %}

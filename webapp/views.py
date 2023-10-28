@@ -28,8 +28,18 @@ def home():
         db.session.commit()
         flash('Transaction added!', category='success')
         return redirect(url_for('views.home'))
+    
+     user_id = current_user.id  # Assuming current_user has an 'id' attribute
+     
+     
+     transactions = Transactions.query.filter_by(user_id=user_id).all()
+     latest_balance = Transactions.query.filter_by(user_id=user_id).order_by(Transactions.transaction_date.desc()).first()
+     balance = latest_balance.balance if latest_balance else 0
 
-     return render_template("dashboard.html", user = current_user)  
+     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
+     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
+    
+     return render_template("dashboard.html", user = current_user, total_income=total_income, total_expenses=total_expenses, balance=balance)  
  
 @views.route('/profile')
 @login_required
@@ -69,7 +79,9 @@ def transaction_history():
     transactions = Transactions.query.filter_by(user_id=user_id).all()
     
     # Calculate total income and total expenses
+    global total_income, total_expenses
     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
 
+    # global total_income, total_expenses
     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)

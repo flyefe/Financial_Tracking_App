@@ -3,15 +3,8 @@
 {% block title %}Create Account{% endblock %}
 
 {% block content %}
-<div align="center">
-    <h1>Dashboard page</h1>
-    <p>Here we will see the key metrics of this app</p>
-    <p>On this page, you also enter youor record</p>
-    <p>you will see the total amount you spend each day for the past 7 days</p>
-    <p>you will see the total income you got earned for the past 7 days</p>
-    <P>Your goal is to earn more per day and spend less per day</P>
-    <h2>Start by inputing the amount you want to track</h2>
-</div>
+<h1 align="center">Dashboard page</h1>
+<h2 align="center">Start by inputing the amount you want to track</h2>
 <div class="row mt-lg-5">
     <div class="col-md-6 offset-md-3">
         <h2>Inpute Transaction</h2>
@@ -23,8 +16,9 @@
             <div class="form-group">
                 <label for="category">Transaction Type</label>
                 <select class="form-control" name="transaction_type" required>
+                    <option value="">Select</option>
                     <option value="expense">Expense</option>
-                    <option value="income">Income</option>
+                    <option value="income">Track Amount</option>
                 </select>
             </div>
             <div class="form-group">
@@ -34,6 +28,13 @@
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
         </form>
     </div>
+</div>
+<br><br>
+<h1>Your Total Cash-Flows Summarized</h1>
+<div class="transaction-summary">
+    <h4>Total Cash Tracked: {{ total_income }}</h4>
+    <h4>Total Expenses Made: {{ total_expenses }}</h4>
+    <h4>Tracking Amount Left: {{balance}}</h4>
 </div>
 
 {% endblock %}

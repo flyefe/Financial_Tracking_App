@@ -6,6 +6,11 @@
 <div class="row mt-3">
     <div class="col-10 offset-1 ">
         <h2>Transaction History</h2>
+        <div class="transaction-summary">
+            <h4>Total Income: {{ total_income }}</h4>
+            <h4>Total Expenses: {{ total_expenses }}</h4>
+        </div>
+        
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -33,10 +38,6 @@
             </tbody>
         </table>
 
-        <div class="transaction-summary">
-            <h4>Total Income: {{ total_income }}</h4>
-            <h4>Total Expenses: {{ total_expenses }}</h4>
-        </div>
     </div>
 </div>
 {% endblock %}
