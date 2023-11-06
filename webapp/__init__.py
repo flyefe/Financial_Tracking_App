@@ -10,7 +10,9 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'secret'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:maestro@localhost/fintracker'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:maestro@localhost/fintracker'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://your-username:your-password@your-hostname:5432/your-database-name'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:maestro@localhost:5432/fintrack'
     db.init_app(app)
 
 
