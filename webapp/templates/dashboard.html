@@ -1,13 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Create Account{% endblock %}
+{% block title %}Dashboard - Financial Tracker{% endblock %}
 
 {% block content %}
-<h1 align="center">Dashboard page</h1>
-<h2 align="center">Start by inputing the amount you want to track</h2>
+<div class="jumbotron mt-4">
+    <h1 class="display-4"><i class="fa fa-line-chart"></i> Welcome to Financial Tracker Dashboard!</h1>
+    <p class="lead">Start by inputting the amount you want to track and keep your finances in check.</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fa fa-money"></i> Total Income</h5>
+                <p class="card-text">$ {{ total_income }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Total Expenses</h5>
+                <p class="card-text">$ {{ total_expenses }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fa fa-balance-scale"></i> Balance</h5>
+                <p class="card-text">$ {{ balance }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row mt-lg-5">
     <div class="col-md-6 offset-md-3">
-        <h2>Inpute Transaction</h2>
+        <h2 class="mb-4">Input Transaction</h2>
         <form method="POST" action="{{ url_for('views.home') }}">
             <div class="form-group">
                 <label for="description">Description</label>
@@ -18,23 +48,15 @@
                 <select class="form-control" name="transaction_type" required>
                     <option value="">Select</option>
                     <option value="expense">Expense</option>
-                    <option value="income">Track Amount</option>
+                    <option value="income">Income</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="income">Amount</label>
                 <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
             </div>
-                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+            <button type="submit" class="btn btn-primary">Add Transaction</button>
         </form>
     </div>
 </div>
-<br><br>
-<h1>Your Total Cash-Flows Summarized</h1>
-<div class="transaction-summary">
-    <h4>Tracking Amounts: {{ total_income }}</h4>
-    <h4>Total Expenses Made: {{ total_expenses }}</h4>
-    <h4>Tracking Amount Left: {{balance}}</h4>
-</div>
-
 {% endblock %}

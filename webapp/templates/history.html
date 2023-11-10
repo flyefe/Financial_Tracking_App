@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Transaction History{% endblock %}
+{% block title %}Transaction History - Financial Tracker{% endblock %}
 
 {% block content %}
+<div class="jumbotron mt-4">
+    <h1 class="display-4"><i class="fa fa-history"></i> Transaction History</h1>
+    <div class="transaction-summary mt-3">
+        <h4>Total Income: ${{ total_income }}</h4>
+        <h4>Total Expenses: ${{ total_expenses }}</h4>
+    </div>
+</div>
+
 <div class="row mt-3">
-    <div class="col-10 offset-1 ">
-        <h2>Transaction History</h2>
-        <div class="transaction-summary">
-            <h4>Total Income: {{ total_income }}</h4>
-            <h4>Total Expenses: {{ total_expenses }}</h4>
-        </div>
-        
-        <table class="table table-bordered">
+    <div class="col-10 offset-1">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -30,14 +32,13 @@
                     <td>{{ transaction.transaction_id }}</td>
                     <td>{{ transaction.transaction_date }}</td>
                     <td>{{ transaction.description }}</td>
-                    <td>{% if transaction.transaction_type == 'income' %}{{ transaction.amount }}{% endif %}</td>
-                    <td>{% if transaction.transaction_type == 'expense' %}{{ transaction.amount }}{% endif %}</td>
-                    <td>{{ transaction.balance }}</td>
+                    <td>{% if transaction.transaction_type == 'income' %}${{ transaction.amount }}{% endif %}</td>
+                    <td>{% if transaction.transaction_type == 'expense' %}${{ transaction.amount }}{% endif %}</td>
+                    <td>${{ transaction.balance }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
 </div>
 {% endblock %}

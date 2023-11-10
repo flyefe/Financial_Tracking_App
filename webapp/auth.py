@@ -58,7 +58,7 @@ def sign_up():
             login_user(new_user, remember=True)
             flash ("Account created!", category='success')
             return redirect (url_for('views.profile'))
-    flash ("Get Ready to Monitor Your Finances! Sign Up to get started with your personal tracker and be responsible!!!", category='success')
+    flash ("Ready to Monitor Your Finances? Sign Up to get started", category='success')
     return render_template("sign-up.html", user=current_user)
 
 

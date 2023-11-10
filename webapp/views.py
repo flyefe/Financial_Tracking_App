@@ -26,7 +26,7 @@ def home():
 
         db.session.add(new_transaction)
         db.session.commit()
-        flash('Transaction added!', category='success')
+        flash('Transaction added successfully!', category='success')
         return redirect(url_for('views.home'))
     
      user_id = current_user.id  # Assuming current_user has an 'id' attribute
