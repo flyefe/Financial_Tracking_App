@@ -6,8 +6,8 @@
 <div class="jumbotron mt-4">
     <h1 class="display-4"><i class="fa fa-history"></i> Transaction History</h1>
     <div class="transaction-summary mt-3">
-        <h4>Total Income: ${{ total_income }}</h4>
-        <h4>Total Expenses: ${{ total_expenses }}</h4>
+        <h4>Total Income: ₦{{ total_income }}</h4>
+        <h4>Total Expenses: ₦{{ total_expenses }}</h4>
     </div>
 </div>
 
@@ -32,9 +32,9 @@
                     <td>{{ transaction.transaction_id }}</td>
                     <td>{{ transaction.transaction_date }}</td>
                     <td>{{ transaction.description }}</td>
-                    <td>{% if transaction.transaction_type == 'income' %}${{ transaction.amount }}{% endif %}</td>
-                    <td>{% if transaction.transaction_type == 'expense' %}${{ transaction.amount }}{% endif %}</td>
-                    <td>${{ transaction.balance }}</td>
+                    <td>{% if transaction.transaction_type == 'income' %}₦{{ transaction.amount }}{% endif %}</td>
+                    <td>{% if transaction.transaction_type == 'expense' %}₦{{ transaction.amount }}{% endif %}</td>
+                    <td>₦{{ transaction.balance }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
