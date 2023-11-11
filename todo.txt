@@ -43,3 +43,8 @@ goals
 <P>Your goal is to earn more per day and spend less per day</P>
 <p>You will also see all the amount you have in your various bank accounts</p>
 <P>You will see the amount you have left in each of these accoun</P>
+
+
+
+Features to be addes
+1. total amount spent per day
