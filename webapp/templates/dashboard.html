@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-center">
+        <div class="card text-center" href="/transaction-history">
             <div class="card-body">
                 <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Total Expenses</h5>
                 <p class="card-text">₦ {{ total_expenses }}</p>
@@ -35,7 +35,7 @@
     </div>
     <div class="col-md-4">
         <div class="card text-center">
-            <div class="card-body">
+            <div class="card-body" href="/transaction-history/today">
                 <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Today's Expenses</h5>
                 <p class="card-text">₦ {{ total_expenses_today }}</p>
             </div>
@@ -45,7 +45,7 @@
         <div class="card text-center">
             <div class="card-body">
                 <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Expense For the last 7 days</h5>
-                <p class="card-text">₦ {{ total_expenses_last_7_days }}</p>
+                <p class="card-text"><a href="/transaction-history/last-7-days">₦ {{ total_expenses_last_7_days }}</a></p>
             </div>
         </div>
     </div>
