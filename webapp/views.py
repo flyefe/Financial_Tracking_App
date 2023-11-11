@@ -41,6 +41,9 @@ def home():
     
      user_id = current_user.id  # Assuming current_user has an 'id' attribute
      
+     transactions = Transactions.query.filter_by(user_id=user_id).all()
+
+     
        # Query total income and total expenses for the current date
      today = datetime.now().date()
      total_income_today = sum(transaction.amount for transaction in transactions
@@ -54,7 +57,6 @@ def home():
      total_expenses_last_7_days = sum(transaction.amount for transaction in transactions
                                     if transaction.transaction_type == 'expense' and seven_days_ago <= transaction.transaction_date.date() <= today)
 
-     transactions = Transactions.query.filter_by(user_id=user_id).all()
      latest_balance = Transactions.query.filter_by(user_id=user_id).order_by(Transactions.transaction_date.desc()).first()
      balance = latest_balance.balance if latest_balance else 0
 
