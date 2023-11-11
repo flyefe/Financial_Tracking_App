@@ -1,0 +1,48 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Welcome Page{% endblock %}
+
+{% block content %}
+<div class="jumbotron mt-4">
+    <h1 class="display-4"><i class="fa fa-line-chart"></i> Welcome to Financial Tracker {{user.first_name}}!!!</h1>
+    <p class="lead">In this website, you can keep track of any amount you like to.</p>
+    <p>To get started, simply head to the dashboard page to begin your financial tracking journey.</p>
+
+    <h2 class="mt-4">About Financial Tracker</h2>
+    <p>At Financial Tracker, I understand the importance of keeping track of your finances. This platform allows you to
+        effortlessly manage and monitor your expenses and income, putting you in control of your finances.</p>
+
+    <h2 class="mt-4">What's in Store?</h2>
+    <ul>
+        <li><i class="fa fa-cogs"></i> <strong>Under Development:</strong> Please note that Financial Tracker is currently
+            under development. I am working hard to bring you a seamless and powerful financial tracking experience.
+        </li>
+        <li><i class="fa fa-lock"></i> <strong>Your Information is Safe:</strong> I prioritize the security of your
+            data. Rest assured, your information is secure and confidential. Your privacy matters to me.</li>
+    </ul>
+
+    <h2 class="mt-4">Get Involved!</h2>
+    <ul>
+        <li><i class="fa fa-lightbulb-o"></i> <strong>Share Your Ideas:</strong> I value your input! If there's a
+            feature you'd love to see or a suggestion you want to share, I am all ears. I will soon introduce a portal
+            for you to submit your ideas and recommendations. Just keep tracking your finances</li>
+    </ul>
+
+    <h2 class="mt-4">Commitment</h2>
+    <ul>
+        <li><i class="fa fa-arrow-up"></i> <strong>Continuous Improvement:</strong> I am dedicated to enhancing your
+            experience. Expect regular updates and improvements to make Financial Tracker even better.</li>
+        <li><i class="fa fa-cogs"></i> <strong>Development Flexibility:</strong> Please understand that development is a
+            dynamic process. I may choose to continue or pause development based on various factors. Your support and
+            feedback play a crucial role in shaping the future of Financial Tracker.</li>
+    </ul>
+
+    <p class="lead">Ready to take control of your finances? Head over to the dashboard and start your financial journey
+        with Financial Tracker.</p>
+
+    <p class="text-muted">Thank you for being a part of Financial Tracker. I look forward to empowering you on your
+        financial journey!</p>
+</div>
+{% endblock %}

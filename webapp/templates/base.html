@@ -21,11 +21,18 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" id="logout" href="/logout">Logout</a>
+                    <a class="nav-link" id="home" href="/">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="home" href="/">Home</a>
+                    <a class="nav-link" id="transaction_history" href="/transaction-history">History</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logout" href="/logout">Logout</a>
+                </li>
+               
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" id="login" href="/login">Login</a>
@@ -39,25 +46,25 @@
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    {% if category == 'error' %}
-    <div class="alert alert-danger  alert-dismissible fade show" role="alert">
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {% else %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     {% endwith %}
 
     <div class="container">
@@ -75,7 +82,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    <script
+    type="text/javascript"
+     src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 
 </html>

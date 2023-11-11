@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Transaction History - Financial Tracker{% endblock %}
+
+{% block content %}
+<div class="jumbotron mt-4">
+    <h1 class="display-4"><i class="fa fa-history"></i> Transaction History</h1>
+    <div class="transaction-summary mt-3">
+        <h4>Total Income: ₦{{ total_income }}</h4>
+        <h4>Total Expenses: ₦{{ total_expenses }}</h4>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-10 offset-1">
+        <!-- Date Filter Form -->
+        <form method="GET" action="{{ url_for('views.transactions_selected_range') }}">
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date">
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button><br><br>
+            <a class="btn btn-primary" href="/transaction-history">All Transactions</a>
+            <a class="btn btn-primary" href="/transaction-history/today">Todays Transactions</a>
+            <a class="btn btn-primary" href="/transaction-history/last-7-days">7 days history</a>
+            
+        </form>
+
+
+        {% if transactions %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Transaction ID</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Income</th>
+                        <th>Expense</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.user_id }}</td>
+                        <td>{{ transaction.transaction_id }}</td>
+                        <td>{{ transaction.transaction_date }}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>{% if transaction.transaction_type == 'income' %}₦{{ transaction.amount }}{% endif %}</td>
+                        <td>{% if transaction.transaction_type == 'expense' %}₦{{ transaction.amount }}{% endif %}</td>
+                        <td>₦{{ transaction.balance }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No transactions</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
