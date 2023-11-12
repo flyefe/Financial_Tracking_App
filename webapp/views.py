@@ -201,3 +201,33 @@ def transactions_selected_range():
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
 
     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)
+
+from flask import render_template
+
+@views.route('/edit/<int:transaction_id>', methods=['GET', 'POST'])
+@login_required
+def edit(transaction_id):
+
+    user=current_user
+    # Fetch the transaction by ID from the database
+    transaction = Transactions.query.get(transaction_id)
+
+    if not transaction:
+        flash('Transaction not found', category='error')
+        return redirect(url_for('views.transaction_history'))
+
+    if request.method == 'POST':
+        # Handle the form submission to update the transaction
+        # Update the transaction fields based on the form data
+        transaction.description = request.form.get('description')
+        transaction.transaction_type = request.form.get('transaction_type')
+        transaction.amount = request.form.get('amount')
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        flash('Transaction updated successfully!', category='success')
+        return redirect(url_for('views.transaction_history'))
+
+    # Render the edit form with the transaction data
+    return render_template('edit.html', transaction=transaction, user=current_user)
