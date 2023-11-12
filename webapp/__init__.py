@@ -12,8 +12,8 @@ def create_app():
     app.config['SECRET_KEY'] = 'secret'
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:maestro@localhost/fintracker'
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://your-username:your-password@your-hostname:5432/your-database-name'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://maestro:j49WApjiFDSZu1WJZADo4Q0qOBymDyNK@dpg-cl3gh4iuuipc738cmgjg-a.oregon-postgres.render.com/fintracker'
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:maestro@localhost:5432/fintrack'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://maestro:j49WApjiFDSZu1WJZADo4Q0qOBymDyNK@dpg-cl3gh4iuuipc738cmgjg-a.oregon-postgres.render.com/fintracker'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:maestro@localhost:5432/fintrack'
     
 
 

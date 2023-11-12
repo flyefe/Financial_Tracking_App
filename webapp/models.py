@@ -10,6 +10,7 @@ class Transactions(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     transaction_type = db.Column(db.String(50))
     amount = db.Column(db.Float)
+    date = db.Column(db.DateTime)
     transaction_date = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String(255))
     balance = db.Column(db.Float)

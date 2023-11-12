@@ -32,7 +32,8 @@ def home():
         description = request.form.get('description')
         transction_type = request.form.get('transaction_type')
         amount = request.form.get('amount')
-        new_transaction = Transactions(description=description, transaction_type=transction_type, amount=amount, user_id=current_user.id)
+        date = request.form.get('datetime')
+        new_transaction = Transactions(description=description, transaction_type=transction_type, date=date, amount=amount, user_id=current_user.id)
 
         db.session.add(new_transaction)
         db.session.commit()

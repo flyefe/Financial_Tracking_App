@@ -17,6 +17,7 @@ CREATE TABLE transactions (
     user_id INT NOT NULL,
     transaction_type VARCHAR(50),
     amount NUMERIC(15, 2),
+    date CURRENT_TIMESTAMP
     transaction_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     description VARCHAR(255),
     total_income NUMERIC(15, 2) DEFAULT 0,

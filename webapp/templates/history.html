@@ -49,7 +49,7 @@
                     <tr>
                         <td>{{ transaction.user_id }}</td>
                         <td>{{ transaction.transaction_id }}</td>
-                        <td>{{ transaction.transaction_date }}</td>
+                        <td>{{ transaction.date }}</td>
                         <td>{{ transaction.description }}</td>
                         <td>{% if transaction.transaction_type == 'income' %}₦{{ transaction.amount }}{% endif %}</td>
                         <td>{% if transaction.transaction_type == 'expense' %}₦{{ transaction.amount }}{% endif %}</td>
