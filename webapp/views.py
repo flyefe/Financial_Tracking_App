@@ -231,3 +231,24 @@ def edit(transaction_id):
 
     # Render the edit form with the transaction data
     return render_template('edit.html', transaction=transaction, user=current_user)
+
+# @views.route('/delete/<int:transaction_id>', methods=['POST'])
+# @login_required
+# def delete(transaction_id):
+#     # Fetch the transaction by ID from the database
+#     transaction = Transactions.query.get(transaction_id)
+
+#     if not transaction:
+#         flash('Transaction not found', category='error')
+#         return redirect(url_for('views.transaction_history'))
+
+#     # Delete the transaction from the database
+#     db.session.delete(transaction)
+#     db.session.commit()
+
+#     flash('Transaction deleted successfully!', category='success')
+#     return redirect(url_for('views.transaction_history'))
+
+@views.route('/test')
+def test():
+    return render_template("test.html")
