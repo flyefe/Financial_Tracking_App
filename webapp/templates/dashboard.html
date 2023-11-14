@@ -58,16 +58,16 @@
         <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTabs">
                 <li class="nav-item">
-                    <a class="nav-link active" id="income-tab" data-toggle="tab" href="#income-form">Add Fund For
+                    <a class="nav-link" id="income-tab" data-toggle="tab" href="#income-form">Add Fund For
                         Tracking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="expense-tab" data-toggle="tab" href="#expense-form">Record Expenses</a>
+                    <a class="nav-link active" id="expense-tab" data-toggle="tab" href="#expense-form">Record Expenses</a>
                 </li>
             </ul>
             <div class="tab-content mt-4">
                 <!-- income Form -->
-                <div class="tab-pane fade show active" id="income-form">
+                <div class="tab-pane fade" id="income-form">
                     <form method="POST" action="{{ url_for('views.home') }}">
                         <!-- Add income form fields here -->
                         <input type="hidden" name="transaction_type" value="income">
@@ -90,7 +90,7 @@
                 </div>
     
                 <!-- Expense Form -->
-                <div class="tab-pane fade" id="expense-form">
+                <div class="tab-pane fade show active" id="expense-form">
                     <form method="POST" action="{{ url_for('views.home') }}">
                         <!-- Add expense form fields here -->
                         <input type="hidden" name="transaction_type" value="expense">
@@ -119,20 +119,27 @@
 
 
 
-<!-- Add this script to enable Bootstrap tabs -->
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#myTabs a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
         });
     });
-</script>
-<script>
+
     // Set the default value of the datetime input fields to the current date and time
     const currentDatetime = new Date().toISOString().slice(0, 16);
     document.getElementById('income-datetime').value = currentDatetime;
     document.getElementById('expense-datetime').value = currentDatetime;
+
+    // Set the default value to be faded until the user selects a date
+    document.getElementById('income-datetime').addEventListener('input', function () {
+        this.style.color = this.value ? 'black' : 'grey';
+    });
+
+    document.getElementById('expense-datetime').addEventListener('input', function () {
+        this.style.color = this.value ? 'black' : 'grey';
+    });
 </script>
 
 {% endblock %}

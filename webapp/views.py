@@ -27,19 +27,7 @@ def all_users():
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
-def home():
-     if request.method == 'POST':
-        description = request.form.get('description')
-        transction_type = request.form.get('transaction_type')
-        amount = request.form.get('amount')
-        date = request.form.get('datetime')
-        new_transaction = Transactions(description=description, transaction_type=transction_type, date=date, amount=amount, user_id=current_user.id)
-
-        db.session.add(new_transaction)
-        db.session.commit()
-        flash('Transaction added successfully!', category='success')
-        return redirect(url_for('views.home'))
-    
+def home():         
      user_id = current_user.id  # Assuming current_user has an 'id' attribute
      
      transactions = Transactions.query.filter_by(user_id=user_id).all()
@@ -63,12 +51,31 @@ def home():
 
      total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
      total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
+     
+     
+     if request.method == 'POST':
+        description = request.form.get('description')
+        transction_type = request.form.get('transaction_type')
+        amount = request.form.get('amount')
+        date = request.form.get('datetime')
+        new_transaction = Transactions(description=description, transaction_type=transction_type, date=date, amount=amount, user_id=current_user.id)
 
-    
-     return render_template("dashboard.html", user = current_user, total_income=total_income, total_expenses=total_expenses, balance=balance, 
-                            total_expenses_today=total_expenses_today, total_income_today=total_income_today,
-                            total_expenses_last_7_days=total_expenses_last_7_days, total_income_last_7_days=total_income_last_7_days)  
- 
+        if transction_type == 'expense' and float(amount) > balance:
+                flash(f'your have ₦{balance} left. want to add more funds to your fundtracker?')
+        else:
+            db.session.add(new_transaction)
+            db.session.commit()
+            if transction_type == 'income':
+                flash(f'Congratulations {current_user.first_name}!!! ₦{amount} added successfully. Remember your your tracker when you spend from {description}. Good Job.😊', category='success')
+            else:
+                flash(f'Welldone {current_user.first_name}!!! ₦{amount} was spent for {description}. Keep tracking your expenses. Good Job😊', category='success')
+        
+        return redirect(url_for('views.home'))
+        
+     return render_template("dashboard.html", user = current_user, total_income=total_income, total_expenses=total_expenses, balance=balance,
+                                total_expenses_today=total_expenses_today, total_income_today=total_income_today,
+                                total_expenses_last_7_days=total_expenses_last_7_days, total_income_last_7_days=total_income_last_7_days)
+
 @views.route('/profile')
 @login_required
 def profile():
