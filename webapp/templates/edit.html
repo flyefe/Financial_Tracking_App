@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Transaction - FinTracker{% endblock %}
+
+{% block content %}
+<div class="jumbotron mt-4 mt-4 border border-primary">
+    <h1 class="display-4"><i class="fa fa-pencil"></i> Edit Transaction</h1>
+</div>
+
+<div class="row mt-3">
+    <div class="col-10 offset-1">
+        <form method="POST">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description"
+                    value="{{ transaction.description }}" required>
+            </div>
+            <div class="form-group">
+                <label for="transaction_type">Transaction Type:</label>
+                <select class="form-control" id="transaction_type" name="transaction_type" required>
+                    <option value="income" {% if transaction.transaction_type=='income' %}selected{% endif %}>Income
+                    </option>
+                    <option value="expense" {% if transaction.transaction_type=='expense' %}selected{% endif %}>Expense
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" class="form-control" id="amount" name="amount" step="0.01"
+                    value="{{ transaction.amount }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Transaction</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

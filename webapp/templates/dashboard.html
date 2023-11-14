@@ -1,151 +1,138 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard - FinTracker{% endblock %}
 
 {% block content %}
-<div class="row mt-4">
-    <div class="col-md-12">
-        <h2>Dashboard</h2>
+<div class="jumbotron mt-4 ">
+    <h1 class="display-4"><i class="fa fa-line-chart"></i> Welcome to FinTracker Dashboard!</h1>
+    <p class="lead">Start by inputting the amount you want to track and keep your finances in check.</p>
+</div>
 
-        <!-- Display user information -->
-        <div class="card">
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Welcome</h5>
-                <p class="card-text">Total Expenses: ${{ total_expenses }}</p>
-                <p class="card-text">Total Income: ${{ total_income }}</p>
+                <h5 class="card-title"><i class="fa fa-money"></i> Total Registered Funds For Tracking</h5>
+                <p class="card-text">₦ {{ total_income }}</p>
             </div>
         </div>
-
-        <!-- Expenses section -->
-        <div class="card mt-4">
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Expenses</h5>
-                <ul class="list-group">
-                    {% for expense in expenses %}
-                        <li class="list-group-item">
-                            {{ expense.description }} - ${{ expense.amount }}
-                            <button class="btn btn-danger btn-sm float-right" data-toggle="modal"
-                                data-target="#deleteExpenseModal-{{ expense.id }}">Delete</button>
-                        </li>
-                        <!-- Modal for deleting expense -->
-                        <div class="modal fade" id="deleteExpenseModal-{{ expense.id }}" tabindex="-1"
-                            role="dialog" aria-labelledby="deleteExpenseModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteExpenseModalLabel">Confirm Deletion</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete this expense?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a href="{{ url_for('delete_expense', id=expense.id) }}"
-                                            class="btn btn-danger">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </ul>
+                <h5 class="card-title"> <a href="/transaction-history"> <i class="fa fa-shopping-cart"></i> Total Expenses</a></h5>
+                <p class="card-text">₦ {{ total_expenses }}</p>
             </div>
         </div>
-
-        <!-- Income section -->
-        <div class="card mt-4">
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Income</h5>
-                <ul class="list-group">
-                    {% for income in income %}
-                        <li class="list-group-item">
-                            {{ income.description }} - ${{ income.amount }}
-                            <button class="btn btn-danger btn-sm float-right" data-toggle="modal"
-                                data-target="#deleteIncomeModal-{{ income.id }}">Delete</button>
-                        </li>
-                        <!-- Modal for deleting income -->
-                        <div class="modal fade" id="deleteIncomeModal-{{ income.id }}" tabindex="-1"
-                            role="dialog" aria-labelledby="deleteIncomeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteIncomeModalLabel">Confirm Deletion</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete this income entry?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a href="{{ url_for('delete_income', id=income.id) }}"
-                                            class="btn btn-danger">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </ul>
+                <h5 class="card-title"><i class="fa fa-balance-scale"></i> Balance Left</h5>
+                <p class="card-text">₦ {{ balance }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><a  href="/transaction-history/today"><i class="fa fa-shopping-cart"></i> Today's Expenses</a></h5>
+                <p class="card-text">₦ {{ total_expenses_today }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><a href="/transaction-history/last-7-days"><i class="fa fa-shopping-cart"></i> &nbsp; One Week Expenses</a> </h5>
+                <p class="card-text">₦ {{ total_expenses_last_7_days }}</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <!-- User information and financial summary -->
-    <!-- <div class="row mt-3">
-        <div class="col-md-6">
-            <h3>Welcome, {{ user.username }}!</h3>
-            <p>Total Expenses: ${{ user.total_expenses }}</p>
-            <p>Total Income: ${{ user.total_income }}</p>
-        </div>
-    </div> --><div class="row mt-3">
-        <div class="col-md-6">
-            <h3>Welcome!</h3>
-            <p>Total Expenses: $</p>
-            <p>Total Income: $</p>
-        </div>
-    </div>
-
-
-
-    <!-- Expense form -->
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <h4>Add Expense</h4>
-            <form action="{{ url_for('add_expense') }}" method="post">
-                <div class="form-group">
-                    <label for="expense_description">Description</label>
-                    <input type="text" class="form-control" id="expense_description" name="expense_description" required>
+<div class="jumbotron mt-4 mt-4 border border-primary">
+    <!-- Tab forms here -->
+    <h3 style="text-align: center;">Track Your Funds Here</h3>
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="myTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="income-tab" data-toggle="tab" href="#income-form">Add Fund For
+                        Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="expense-tab" data-toggle="tab" href="#expense-form">Record Expenses</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-4">
+                <!-- income Form -->
+                <div class="tab-pane fade show active" id="income-form">
+                    <form method="POST" action="{{ url_for('views.home') }}">
+                        <!-- Add income form fields here -->
+                        <input type="hidden" name="transaction_type" value="income">
+                        <!-- Set the transaction type to 'income' -->
+                        <div class="form-group">
+                            <label for="income-description">Description</label>
+                            <input type="text" class="form-control" id="income-description" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="income-amount">Amount</label>
+                            <input type="number" class="form-control" id="income-amount" name="amount" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="income-datetime">Date and Time</label>
+                            <input type="datetime-local" class="form-control" id="income-datetime" name="datetime" value=""
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add fund</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="expense_amount">Amount</label>
-                    <input type="number" class="form-control" id="expense_amount" name="expense_amount" required>
+    
+                <!-- Expense Form -->
+                <div class="tab-pane fade" id="expense-form">
+                    <form method="POST" action="{{ url_for('views.home') }}">
+                        <!-- Add expense form fields here -->
+                        <input type="hidden" name="transaction_type" value="expense">
+                        <!-- Set the transaction type to 'expense' -->
+                        <div class="form-group">
+                            <label for="expense-amount">Amount</label>
+                            <input type="number" class="form-control" id="expense-amount" name="amount" step="0.01"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-description">What for?</label>
+                            <input type="text" class="form-control" id="expense-description" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-datetime">Date and Time</label>
+                            <input type="datetime-local" class="form-control" id="expense-datetime" name="datetime" value=""
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Expense</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Expense</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Income form -->
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <h4>Add Income</h4>
-            <form action="{{ url_for('add_income') }}" method="post">
-                <div class="form-group">
-                    <label for="income_description">Description</label>
-                    <input type="text" class="form-control" id="income_description" name="income_description" required>
-                </div>
-                <div class="form-group">
-                    <label for="income_amount">Amount</label>
-                    <input type="number" class="form-control" id="income_amount" name="income_amount" required>
-                </div>
-                <button type="submit" class="btn btn-success">Add Income</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+<!-- Add this script to enable Bootstrap tabs -->
+<script>
+    $(document).ready(function(){
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+    });
+</script>
+<script>
+    // Set the default value of the datetime input fields to the current date and time
+    const currentDatetime = new Date().toISOString().slice(0, 16);
+    document.getElementById('income-datetime').value = currentDatetime;
+    document.getElementById('expense-datetime').value = currentDatetime;
+</script>
+
 {% endblock %}

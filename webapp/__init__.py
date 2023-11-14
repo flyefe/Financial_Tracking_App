@@ -10,7 +10,17 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'secret'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:maestro@localhost/fullweb'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:maestro@localhost/fintracker'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://your-username:your-password@your-hostname:5432/your-database-name'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://maestro:j49WApjiFDSZu1WJZADo4Q0qOBymDyNK@dpg-cl3gh4iuuipc738cmgjg-a.oregon-postgres.render.com/fintracker' #Render DB
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:maestro@localhost:5432/fintrack' #Local DB 
+
+
+
+
+
+
+
     db.init_app(app)
 
 
@@ -21,7 +31,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User
+    from .models import Users
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -29,7 +39,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return Users.query.get(int(id))
 
 
 
