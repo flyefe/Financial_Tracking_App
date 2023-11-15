@@ -54,6 +54,16 @@
                         <td>{% if transaction.transaction_type == 'income' %}₦{{ transaction.amount }}{% endif %}</td>
                         <td>{% if transaction.transaction_type == 'expense' %}₦{{ transaction.amount }}{% endif %}</td>
                         <td>₦{{ transaction.balance }}</td>
+                        <td>
+                            <a href="{{ url_for('views.edit_transaction', transaction_id=transaction.transaction_id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                        </td>
+                        <!-- <td>
+                            <a href="{{ url_for('views.delete_transaction', transaction_id=transaction.transaction_id) }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td> -->
                     </tr>
                     {% endfor %}
                 </tbody>

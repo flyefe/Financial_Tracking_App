@@ -213,7 +213,7 @@ from flask import render_template
 
 @views.route('/edit/<int:transaction_id>', methods=['GET', 'POST'])
 @login_required
-def edit(transaction_id):
+def edit_transaction(transaction_id):
 
     user=current_user
     # Fetch the transaction by ID from the database
@@ -221,7 +221,7 @@ def edit(transaction_id):
 
     if not transaction:
         flash('Transaction not found', category='error')
-        return redirect(url_for('views.transaction_history'))
+        return redirect(url_for('views.all_transaction'))
 
     if request.method == 'POST':
         # Handle the form submission to update the transaction
@@ -229,32 +229,35 @@ def edit(transaction_id):
         transaction.description = request.form.get('description')
         transaction.transaction_type = request.form.get('transaction_type')
         transaction.amount = request.form.get('amount')
+        transaction.date = request.form.get('datetime')
+
 
         # Commit the changes to the database
         db.session.commit()
 
         flash('Transaction updated successfully!', category='success')
-        return redirect(url_for('views.transaction_history'))
+        return redirect(url_for('views.all_transactions'))
 
     # Render the edit form with the transaction data
-    return render_template('edit.html', transaction=transaction, user=current_user)
+    return render_template('edit.html', transaction=transaction, user=user)
 
-# @views.route('/delete/<int:transaction_id>', methods=['POST'])
-# @login_required
-# def delete(transaction_id):
-#     # Fetch the transaction by ID from the database
-#     transaction = Transactions.query.get(transaction_id)
+@views.route('/delete/<int:transaction_id>', methods=['POST'])
+@login_required
+def delete_transaction(transaction_id):
+    user=current_user
+    # Fetch the transaction by ID from the database
+    transaction = Transactions.query.get(transaction_id)
 
-#     if not transaction:
-#         flash('Transaction not found', category='error')
-#         return redirect(url_for('views.transaction_history'))
+    if not transaction:
+        flash('Transaction not found', category='error')
+        return redirect(url_for('views.all_transactions'))
 
-#     # Delete the transaction from the database
-#     db.session.delete(transaction)
-#     db.session.commit()
+    # Delete the transaction from the database
+    db.session.delete(transaction)
+    db.session.commit()
 
-#     flash('Transaction deleted successfully!', category='success')
-#     return redirect(url_for('views.transaction_history'))
+    flash('Transaction deleted successfully!', category='success')
+    return redirect(url_for('views.all_transactions'))
 
 @views.route('/test')
 def test():

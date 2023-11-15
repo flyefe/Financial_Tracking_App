@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title"><i class="fa fa-money"></i> Total Registered Funds For Tracking</h5>
+                <h5 class="card-title"><i class="fa fa-money"></i> Total Funds Registered</h5>
                 <p class="card-text">₦ {{ total_income }}</p>
             </div>
         </div>
@@ -20,7 +20,7 @@
     <div class="col-md-4">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title"> <a href="/transaction-history"> <i class="fa fa-shopping-cart"></i> Total Expenses</a></h5>
+                <h5 class="card-title"> <a href="/transaction-history"> <i class="fa fa-shopping-cart"></i> Total Expenses Tracked</a></h5>
                 <p class="card-text">₦ {{ total_expenses }}</p>
             </div>
         </div>
@@ -36,7 +36,7 @@
     <div class="col-md-4">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title"><a  href="/transaction-history/today"><i class="fa fa-shopping-cart"></i> Today's Expenses</a></h5>
+                <h5 class="card-title"><a  href="/transaction-history/today"><i class="fa fa-shopping-cart"></i> Today Expenses Tracked</a></h5>
                 <p class="card-text">₦ {{ total_expenses_today }}</p>
             </div>
         </div>
@@ -44,7 +44,7 @@
     <div class="col-md-4">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title"><a href="/transaction-history/last-7-days"><i class="fa fa-shopping-cart"></i> &nbsp; One Week Expenses</a> </h5>
+                <h5 class="card-title"><a href="/transaction-history/last-7-days"><i class="fa fa-shopping-cart"></i> &nbsp; 1 Week Expenses</a> </h5>
                 <p class="card-text">₦ {{ total_expenses_last_7_days }}</p>
             </div>
         </div>
@@ -62,7 +62,7 @@
                         Tracking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" id="expense-tab" data-toggle="tab" href="#expense-form">Record Expenses</a>
+                    <a class="nav-link active" id="expense-tab" data-toggle="tab" href="#expense-form">Track Expenses</a>
                 </li>
             </ul>
             <div class="tab-content mt-4">
@@ -131,6 +131,17 @@
     const currentDatetime = new Date().toISOString().slice(0, 16);
     document.getElementById('income-datetime').value = currentDatetime;
     document.getElementById('expense-datetime').value = currentDatetime;
+
+    // Set the default value to be faded until the user selects a date
+        const setInitialColor = function (elementId) {
+            const element = document.getElementById(elementId);
+            element.style.color = element.value ? 'black' : 'grey';
+        };
+
+        setInitialColor('income-datetime');
+        setInitialColor('expense-datetime');
+
+    
 
     // Set the default value to be faded until the user selects a date
     document.getElementById('income-datetime').addEventListener('input', function () {
