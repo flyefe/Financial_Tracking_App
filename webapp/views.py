@@ -46,11 +46,12 @@ def home():
      total_expenses_last_7_days = sum(transaction.amount for transaction in transactions
                                     if transaction.transaction_type == 'expense' and seven_days_ago <= transaction.transaction_date.date() <= today)
 
-     latest_balance = Transactions.query.filter_by(user_id=user_id).order_by(Transactions.transaction_date.desc()).first()
-     balance = latest_balance.balance if latest_balance else 0
+    #  latest_balance = Transactions.query.filter_by(user_id=user_id).order_by(Transactions.transaction_date.desc()).first()
+    #  balance = latest_balance.balance if latest_balance else 0
 
      total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
      total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
+     balance = total_income - total_expenses
      
      
      if request.method == 'POST':
@@ -209,7 +210,6 @@ def transactions_selected_range():
 
     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)
 
-from flask import render_template
 
 @views.route('/edit/<int:transaction_id>', methods=['GET', 'POST'])
 @login_required
@@ -258,6 +258,19 @@ def delete_transaction(transaction_id):
 
     flash('Transaction deleted successfully!', category='success')
     return redirect(url_for('views.all_transactions'))
+
+@views.route('/clear-history', methods=['POST'])
+@login_required
+def clear_history():
+    user_id = current_user.id
+    # Delete all transactions for the current user
+    Transactions.query.filter_by(user_id=user_id).delete()
+
+    # Commit the changes to the database
+    db.session.commit()
+
+    flash('Transaction history cleared successfully', 'success')
+    return redirect(url_for('views.home'))
 
 @views.route('/test')
 def test():

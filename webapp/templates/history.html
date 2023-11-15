@@ -27,7 +27,11 @@
             <a class="btn btn-primary" href="/transaction-history">All Transactions</a>
             <a class="btn btn-primary" href="/transaction-history/today">Todays Transactions</a>
             <a class="btn btn-primary" href="/transaction-history/last-7-days">7 days history</a>
-            
+        </form>
+        <!-- Add this button or link where you want to trigger the history clearing -->
+        <form method="POST" action="{{ url_for('views.clear_history') }}"
+            onsubmit="return confirm('Are you sure you want to clear all transaction history?');">
+            <button type="submit" class="btn btn-danger">Clear Transaction History</button>
         </form>
 
 
@@ -59,11 +63,16 @@
                                 <i class="fas fa-pencil-alt"></i> Edit
                             </a>
                         </td>
-                        <!-- <td>
-                            <a href="{{ url_for('views.delete_transaction', transaction_id=transaction.transaction_id) }}" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </a>
-                        </td> -->
+                        <td>
+                            <!-- Update the delete button to use a form with POST method -->
+                            <form method="POST" action="{{ url_for('views.delete_transaction', transaction_id=transaction.transaction_id) }}"
+                                onsubmit="return confirm('Are you sure you want to delete this transaction?');">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </form>
+
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
