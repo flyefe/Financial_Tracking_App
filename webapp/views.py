@@ -100,15 +100,28 @@ def all_transactions():
     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)
 
 # All todays transactions
+# @views.route('/transaction-history/today', methods=['GET'])
+# @login_required
+# def transactions_today():
+#     user_id = current_user.id
+#     end_date = datetime.now().date()
+#     start_date = end_date
+#     transactions = Transactions.query.filter(
+#         Transactions.user_id == user_id,
+#         func.date(Transactions.date).between(start_date, end_date)
+#     ).all()
+#     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
+#     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
+#     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)
+
 @views.route('/transaction-history/today', methods=['GET'])
 @login_required
 def transactions_today():
     user_id = current_user.id
-    end_date = datetime.now().date()
-    start_date = end_date
+    today = datetime.now().date()
     transactions = Transactions.query.filter(
         Transactions.user_id == user_id,
-        func.date(Transactions.transaction_date).between(start_date, end_date)
+        func.date(Transactions.date) == today
     ).all()
     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
@@ -122,7 +135,7 @@ def transactions_last_7_days():
     start_date = end_date - timedelta(days=6)
     transactions = Transactions.query.filter(
         Transactions.user_id == user_id,
-        func.date(Transactions.transaction_date).between(start_date, end_date)
+        func.date(Transactions.date).between(start_date, end_date)
     ).all()
     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
@@ -199,7 +212,7 @@ def transactions_selected_range():
 
     transactions = Transactions.query.filter(
         Transactions.user_id == user_id,
-        func.date(Transactions.transaction_date).between(start_date, end_date)
+        func.date(Transactions.date).between(start_date, end_date)
     ).all()
 
      # Calculate total income and total expenses for the date range
