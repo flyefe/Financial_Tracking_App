@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from .models import Transactions, Users
 from . import db
 from datetime import datetime, timedelta
-from sqlalchemy import func
+from sqlalchemy import func, asc
 
 
 views = Blueprint('views', __name__)
@@ -61,7 +61,7 @@ def home():
         date = request.form.get('datetime')
         new_transaction = Transactions(description=description,
                                        transaction_type=transction_type,
-                                       transaction_date=date,
+                                       date=date,
                                        amount=amount,
                                        user_id=current_user.id)
 
@@ -81,7 +81,7 @@ def home():
                     f'Welldone {current_user.first_name}!!! ₦{amount} was spent for {description}. Keep tracking your expenses. Good Job😊',
                     category='success')
 
-        return redirect(url_for('views.home'))
+        return redirect(url_for('views.all_transactions'))
 
     return render_template(
         "dashboard.html",
@@ -106,7 +106,7 @@ def all_transactions():
     # Query transactions
     user_id = current_user.id  # Assuming current_user has an 'id' attribute
 
-    transactions = Transactions.query.filter_by(user_id=user_id).all()
+    transactions = Transactions.query.filter_by(user_id=user_id).order_by(asc(Transactions.date)).all()
 
     # Calculate total income and total expenses
     global total_income, total_expenses
@@ -211,7 +211,7 @@ def edit_transaction(transaction_id):
         transaction.description = request.form.get('description')
         transaction.transaction_type = request.form.get('transaction_type')
         transaction.amount = request.form.get('amount')
-        transaction.transaction_date = request.form.get('datetime')
+        transaction.date = request.form.get('datetime')
 
 
         # Commit the changes to the database
