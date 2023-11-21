@@ -27,6 +27,9 @@
             <a class="btn btn-primary" href="/transaction-history">All Transactions</a>
             <a class="btn btn-primary" href="/transaction-history/today">Todays Transactions</a>
             <a class="btn btn-primary" href="/transaction-history/last-7-days">7 days history</a>
+            <a class="btn btn-primary" href="/#expense-form">Add Transaction</a>
+
+
         </form>
         <!-- Add this button or link where you want to trigger the history clearing -->
         <form method="POST" action="{{ url_for('views.clear_history') }}"
@@ -53,7 +56,7 @@
                     <tr>
                         <!-- <td>{{ transaction.user_id }}</td> -->
                         <td>{{ transaction.transaction_id }}</td>
-                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.transaction_date }}</td>
                         <td>{{ transaction.description }}</td>
                         <td>{% if transaction.transaction_type == 'income' %}₦{{ transaction.amount }}{% endif %}</td>
                         <td>{% if transaction.transaction_type == 'expense' %}₦{{ transaction.amount }}{% endif %}</td>
