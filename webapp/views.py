@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from .models import Transactions, Users
 from . import db
 from datetime import datetime, timedelta
-from sqlalchemy import func, asc
+from sqlalchemy import func, desc
 
 
 views = Blueprint('views', __name__)
@@ -106,7 +106,9 @@ def all_transactions():
     # Query transactions
     user_id = current_user.id  # Assuming current_user has an 'id' attribute
 
-    transactions = Transactions.query.filter_by(user_id=user_id).order_by(asc(Transactions.date)).all()
+    transactions = Transactions.query.filter_by(
+        user_id=user_id).order_by(
+        desc(Transactions.date)).all()
 
     # Calculate total income and total expenses
     global total_income, total_expenses
@@ -131,7 +133,7 @@ def transactions_today():
     transactions = Transactions.query.filter(
         Transactions.user_id == user_id,
         func.date(Transactions.date) == today
-    ).all()
+    ).order_by(desc(Transactions.date)).all()
     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
     return render_template('history.html', transactions=transactions, total_income=total_income, total_expenses=total_expenses, user=current_user)
@@ -145,6 +147,7 @@ def transactions_last_7_days():
     transactions = Transactions.query.filter(
         Transactions.user_id == user_id,
         func.date(Transactions.date).between(start_date, end_date)
+    ).order_by(desc(Transactions.date)
     ).all()
     total_income = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'income')
     total_expenses = sum(transaction.amount for transaction in transactions if transaction.transaction_type == 'expense')
